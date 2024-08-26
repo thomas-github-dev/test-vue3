@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Home</h2>
+        <h2>Home Test Vue3</h2>
         <p></p>
     </div>
 </template>
