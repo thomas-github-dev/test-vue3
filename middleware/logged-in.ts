@@ -1,7 +1,11 @@
 export default defineNuxtRouteMiddleware((to,from) => {
     const { loggedIn } = useUserSession();
-    console.log("loggedIn",loggedIn);
+    
     if (!loggedIn.value){
+        console.log("NOT LOGED");
         return navigateTo("/profile/google")
+        
+    } else {
+        console.log(" LOGED");
     }
 })

@@ -1,27 +1,25 @@
 <template>
     
-    
-      
-    <div class="flex flex-row  ml-5 mt-5 gap-x-8 h-8 flex-nowrap items-center  w-fit">
-        <div class="flex p-1 flex-1">
-       <img :src="img_drive" alt="" class="thumb"/>
-      </div> 
-        <div class=" align-middle justify-center h-8 m-auto"> 
-          {{ drive_detail.name }} 
-      
+    <td class="px-6 py-1 whitespace-nowrap">
+        <div class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10">
+                <img :src="img_drive" alt="" class="thumb"/>
+            </div>
+           
         </div>
-        <div class="flex  text-nowrap  align-middle"> 
-          <Popup :popup_detail="{id:drive_detail.id,name:drive_detail.name}" @supprimer="supprimer"/>
-         <!-- <a @click="supprimer(drive_detail.id)" class="btn">Delete</a>-->
+    </td>
+    <td class="px-6 py-1 whitespace-nowrap">
+      <div class="text-sm text-gray-900">
+        <NuxtLink :href="url" external target="_blank" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500">{{ drive_detail.name }}</NuxtLink> 
       
-        </div>
-        <div class="flex  text-nowrap  align-middle"> 
-          <!--<a @click="open(drive_detail.id)"  class="btn">Open</a>>-->
-          <NuxtLink :href="url" external target="_blank">Open</NuxtLink>
-          
-        </div>
       </div>
-     
+    </td>
+    <td class="px-6 py-1 whitespace-nowrap  text-sm font-medium">
+        
+       <!-- <NuxtLink :href="url" external target="_blank" class="text-indigo-600 hover:text-indigo-900">Open</NuxtLink>-->
+        <Popup :popup_detail="{id:drive_detail.id,name:drive_detail.name}" @supprimer="supprimer" />
+    </td>
+      
    
  
 

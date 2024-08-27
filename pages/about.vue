@@ -1,22 +1,30 @@
 <template>
-    <div>
-        <h2>About Cureency</h2>
-        <div class="font-bold text-center mb-10">
-            {{ current_value === 0 ? 'Selectionnez une valeur' : current_value }}
+    <div v-if="data">
+        <div >
+            <h2>About Cureency</h2>
+            <div class="font-bold text-center mb-10">
+                {{ current_value === 0 ? 'Selectionnez une valeur' : current_value }}
+            </div>
+            <div class="grid grid-cols-6">
+                <div v-for="p in data['data']['data']" >            
+                    <a @click="changeValue(p.code)" class="p-2 pointer-events-auto">Affiche {{p.code}}</a>
+                    <NuxtLink :to="'/currency/'+p.code"><p class="btn my-4 p-4">{{p.code}}</p></NuxtLink>
+                    
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-6">
-            <div v-for="p in data['data']['data']" >            
-                <a @click="changeValue(p.code)" class="p-2 pointer-events-auto">Affiche {{p.code}}</a>
-                <NuxtLink :to="'/currency/'+p.code"><p class="btn my-4 p-4">{{p.code}}</p></NuxtLink>
-                
+        <div>
+            <h2>Data Raw</h2>
+            <div>
+                {{ data }}
             </div>
         </div>
     </div>
-    <div>
-        <h2>Data Raw</h2>
-        <div>
-            {{ data }}
-        </div>
+    <div v-else>
+        <div >
+            <h2>Trop de connexion à l'API</h2>
+
+     </div>
     </div>
 </template>
 

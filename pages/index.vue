@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h2>Home Test Vue3</h2>
-        <p></p>
+        <h2>Accueil Test Vue3</h2>
+        
     </div>
 </template>
 
@@ -10,10 +10,5 @@
 </script>
 
 <style lang="css" scoped>
-    h2 {
-        font-size:36px;
-    }
-    p {
-        margin : 20px 0;
-    }
+   
 </style>

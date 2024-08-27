@@ -1,11 +1,11 @@
 <template>
 
-    <div class="flex flex-row card_folder w-fit mr-5">
+    <div class="flex flex-row  w-fit mr-5">
       <div class="flex p-1 flex-1">
          <img src="/folder.png" alt="" class="thumb"/>
      </div> 
      <div class="flex p-1 flex-1 flex-nowrap text-nowrap text-sm ml-1"> 
-          <button @click="clicked(drive_folder.id,drive_folder.name)">{{ drive_folder.name }}  </button>  
+          <button @click="clicked(drive_folder.id,drive_folder.name)" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500">{{ drive_folder.name }}  </button>  
      </div>
    </div>
    

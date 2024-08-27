@@ -6,7 +6,7 @@
             <div class="flex flex-row">
                 <div  v-for="a in arborescence">  
                      <div>
-                        <a @click="clicked(a.id,a.name)" class="flex cursor-pointer">&nbsp;{{ a.name }} / </a>
+                        <a @click="clicked(a.id,a.name)" class="flex cursor-pointer border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500">&nbsp;{{ a.name }} / </a>
                      </div> 
                 </div>
                 
@@ -28,13 +28,11 @@
             <GoogleDriveFolder :drive_folder="z" @clicked="clicked"/>          
         </div>
     </div>
-    <div class="flex flex-col mt-5">
-        <div>
-            FICHIER DISPONIBLE
-        </div>   
-        <div class="mt-1" style="width:450px">
-            <div class="flex flex-row mt-2">
-                <div class="mr-2">
+    <div class="flex flex-col mt-5" v-if="drive_file.length>0">
+        <div class="flex flex-row mt-2" style="height: 50px;">
+
+           
+            <div class="" style="width:350px">
                     <Input placeholder="Recherche" v-model="search_value" @input="search()" />
                 </div>
                 
@@ -42,13 +40,34 @@
                     
                     <Button @click="delete_search()">X</Button>
                 </div>
-            </div>
-            
         </div>
-        <div v-for="p in list_affich">  
+       
+   
             
-               <!-- <GooleDriveDetail :drive_detail="p"/>          -->
-                <GoogleDriveDetail :drive_detail="p" @supprimer="supprimer" @open="open" :key="component_key"/>
+       
+        <div>
+        <table class="min-w-full divide-y divide-gray-200 overflow-x-auto" >
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Type
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Nom
+                    </th>                   
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr v-for="p in list_affich" >  
+                    
+                    <!-- <GooleDriveDetail :drive_detail="p"/>          -->
+                        <GoogleDriveDetail :drive_detail="p" @supprimer="supprimer" @open="open" :key="component_key"/>
+                </tr>
+            </tbody>
+        </table>
         </div>
         <Pagination   v-slot="{ page }" :total="drive_file.length" :sibling-count="1" show-edges :default-page="1" class="mt-10">
             <PaginationList v-slot="{ items }" class="flex items-center gap-1">
@@ -68,6 +87,9 @@
             <PaginationLast  @click="change_index(items.length-1)"/>
             </PaginationList>
         </Pagination>
+    </div>
+    <div v-else>
+        Aucun fichier 
     </div>
     
     
@@ -106,23 +128,26 @@
 
     function search(){
         console.log(search_value.value)
+        drive_file = sav_drive_file
         var drive_file_temp = []
         //let word = new String("")
        // drive_file_temp =  drive_file.filter(filer_arr);   
        if (search_value.value!='')     {
         drive_file_temp = drive_file.filter((word:data_drive)=> word.name.includes(search_value.value));
         drive_file = drive_file_temp
+        list_affich = drive_file_temp.slice(0,10)
+        component_key.value+=1
        } else {
-        drive_file = sav_drive_file
-        drive_file_temp = drive_file
-       
+        console.log("search vide")
+        /*drive_file = sav_drive_file
+        drive_file_temp = drive_file*/
+        delete_search()
        }
         
        // drive_file_temp = drive_file.filter(drive_file.name.some(val => val.includes(search_value.value)));
        // drive_file_temp = drive_file.filter((obj:data_drive) => JSON.stringify(obj).toLowerCase().includes(search_value.value.toString().toLowerCase()));
 
-        list_affich = drive_file_temp.slice(0,10)
-        component_key.value+=1
+       
        
     }
 

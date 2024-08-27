@@ -1,6 +1,6 @@
 <template>
     <div>
-            Index de connexion
+        <h2>Accueil de connexion</h2>
     </div>
 </template>
 

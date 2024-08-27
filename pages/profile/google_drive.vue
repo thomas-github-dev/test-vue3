@@ -2,15 +2,14 @@
 <script setup >
 
       definePageMeta({
-       //  middleware:"logged-in",
+         middleware:"logged-in",
          layout: 'connexion'
       })
       //const { user } = useUserSession();
      
       const  googleAPIKey  = process.env.googleAPIKey; //"AIzaSyABhPNaP9o6cOkVZjJbfNg_rsHVqf9P3M0"
       const  googleIDClient  = process.env.googleIDClient;//"407602233142-57nieisr74vkn9r4l62b99vmg58vc3gd.apps.googleusercontent.com"
-      console.log("googleAPIKey",googleAPIKey)
-      console.log("googleIDClient",googleIDClient)
+      
       // Discovery doc URL for APIs used by the quickstart
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
 
@@ -21,44 +20,47 @@
       //gapi.load('client', test)
       let tokenClient;
       let files;
-      const { user }= useUserSession()
-     
+      const { loggedIn, user } = useUserSession()
       
-     /*
-
-      const test = async () =>{
-        console.log('gapiClient', gapiClient); // undefined
-        gapi.client.setToken(user.value.token.access_token )
-       
-        tokenClient.requestAccessToken({ prompt: '' });
-
-        tokenClient.callback = async (resp) => {
-        if (resp.error !== undefined) {
-          throw resp;
-        }
-        console.log('resp', resp);
-      };
-
+      var gapiInited = false;
+      var gisInited = false;
+      
+      function checkAll(){
+        console.log("checkAll")
+        console.log("gapiInited",gapiInited)
+        console.log("gisInited",gisInited)
+        if (gapiInited && gisInited) listFiles();
       }
-*/
+  
       function initialize_gapi(){
         gapi.load('client', initializeGapiClient);
       }
       async function initializeGapiClient() {
-        
+        console.log("initializeGapiClient")
        await gapi.client.init({
           apiKey: googleAPIKey,
           discoveryDocs: [DISCOVERY_DOC]
           
         });
+        gapiInited = true;
+        checkAll()
       }
 
+
+
       function gisLoaded() {
+        console.log("gisLoaded")
+        gisInited = true;
+        
+        checkAll()
         tokenClient = google.accounts.oauth2.initTokenClient({
           client_id: googleIDClient,
           scope: SCOPES,
           callback: '', // defined later
         });
+        
+       
+        
       }
       
       let navigation = [{name:'HOME',id:""}];
@@ -73,11 +75,11 @@
         access_drive.value=false
         files_fich = [];
         files_folder = [];
-        
+        console.log("token",user.value.token.access_token)
+        console.log("LIST file function")
         var token = 
         gapi.client.setToken({"access_token":user.value.token.access_token })
-       
-        console.log("LIST file function")
+        
         let response;
         try {
           response = await gapi.client.drive.files.list({
@@ -109,47 +111,20 @@
       }
 
 
-/*
-
-      async function getAccessToken() {
-
-        const token = user.value.token;
-
-        if (token && token.expiresAt && new Date(token.expiresAt) > new Date()) {
-            return token.accessToken
-        }
-
-        // else, we have to renew the token 
-        else {
-            const refreshToken = token.refreshToken
-            const response = await fetch('https://oauth2.googleapis.com/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `client_id=${process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID}&client_secret=${process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`
-            })
-            const tokens = await response.json() 
-            await updateToken(tokens.access_token, tokens.refresh_token, channelId)
-            return tokens.access_token
-        }
-      }
-
-*/  
-
-  function print_console(arg) {
-
-    console.log(arg)
-  }
+ 
 
       onMounted(async () => {
        try {
+          
         initialize_gapi()
         gisLoaded()
+        
+        
        } catch(err) {
 
        } finally {
-        setTimeout(listFiles(), 2000)
+        
+       // setTimeout(listFiles(), 2000)
         
        } 
      })
@@ -221,18 +196,21 @@
 </script>
 
 <template>
-  <div class="ml-10">   
-   <div class="my-4">
-     <!-- <p>
-     
-         <Button id="affich_liste" @click="listFiles" class="btn">AFFICHE LIST</button>
-      </p>      
-     -->
-        <div class=" w-full" v-if="access_drive">
-        <GoogleDrive :drive="{'fich':files_fich,'fold':files_folder,'in_fold':parent_folder,'arbo':navigation}" v-if="access_drive"  @supprimer="supprimer" @open="open" @clicked="clicked"/>
+ 
+    <div class="ml-10">   
+    <div class="my-4">
+      <!-- <p>
       
-      </div>
-      <div v-else class="mt-2 w-full"> ... LOADING ...</div>
-   </div>
-  </div>
+          <Button id="affich_liste" @click="listFiles" class="btn">AFFICHE LIST</button>
+        </p>      
+      -->
+          <div class=" w-full" v-if="access_drive">
+          <GoogleDrive :drive="{'fich':files_fich,'fold':files_folder,'in_fold':parent_folder,'arbo':navigation}" v-if="access_drive"  @supprimer="supprimer" @open="open" @clicked="clicked"/>
+        
+        </div>
+        <div v-else class="mt-2 w-full"> ... LOADING ...</div>
+    </div>
+    </div>
+ 
+ 
 </template>

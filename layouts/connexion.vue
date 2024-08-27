@@ -1,33 +1,29 @@
 <template>
     <div>
-         <header class="shadow-sm bg-white">
-            <nav class="container mx-auto p-4 flex justify-between">
-                <nuxt-link to="/" class="font-bold" >Home</nuxt-link>
-                <ul class="flex gap-4">
+         <header >
+
+            <nav class="bg-white shadow dark:bg-gray-800">
+                <div class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
                    
-                    <li>
-                        <nuxt-link to="/about">Test call api monnaie</nuxt-link>
-                    </li>
-                    <li>
-                        <nuxt-link to="/products">Test boutique</nuxt-link>
-                    </li>
-                    <li>
-                        <nuxt-link to="/login" >Test connexion</nuxt-link>
-                    </li>
-                
-                </ul>
-            </nav>
-            <nav class="container mx-auto p-4 flex justify-between flex">
-                <ul class="flex gap-4 ml-auto">
-                    <li>
-                        <nuxt-link to="/profile/google"  >Google Account</nuxt-link>
-                    </li>
-                    <li>
-                        <nuxt-link to="/profile/google_drive">Google Drive</nuxt-link>
-                    </li>
+                    <nuxt-link to="/" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Home</nuxt-link>    
+                    <nuxt-link to="/about" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Test call api monnaie</nuxt-link>    
+                    <nuxt-link to="/products" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Test boutique</nuxt-link>    
+                    <nuxt-link to="/profile" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Test connexion</nuxt-link>    
                     
-                </ul>
+
+                </div>
             </nav>
+            <nav class="bg-white shadow dark:bg-gray-800">
+                <div class="container flex items-center justify-center p-1 mx-auto text-gray-600 capitalize dark:text-gray-300">
+                   
+                    <nuxt-link to="/profile/google" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Google Account</nuxt-link>    
+                    <nuxt-link to="/profile/google_drive" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6" >Google Drive</nuxt-link>    
+                   
+
+                </div>
+            </nav>
+
+          
         </header>
         <div class="container mx-auto p-4">
             <slot />

@@ -4,7 +4,7 @@ const { loggedIn, user, session, fetch, clear } = useUserSession()
 //console.log("user",user)
 const logout = async () =>{
     await clear();
-    navigateTo("/",{replace:true})
+    navigateTo("/profile/google",{replace:true})
 }
 definePageMeta({
    // middleware:"logged-in",
@@ -27,20 +27,21 @@ definePageMeta({
                         <h1 class="font-bold text-4xl my-7">{{ user?.login }}</h1>
                         <h1 class="font-bold text-4xl my-7">{{ user?.email }}</h1>
                         <h1 class="font-bold text-4xl my-7">{{ user?.id }}</h1>
+                        
                        <!-- <p class=" my-7">{{ user?.token }}</p>-->
                         <p class="text-x1 my-7"><button @click="logout" class="btn my-4">Deconnexion</button></p>
                         <p class="text-x1 my-7">
                             <nuxt-link href="/profile/google_drive" class="btn" external>Acces au drive</nuxt-link>
                         </p>
-                        <p class="text-x1 my-7">
-                            <a href="/api/auth/youtube" type="button">
-                                Choose channel to join
-                            </a>
-                        </p>
+                        
                     </div>
                 </div>
+                
             </div>
         </div>
+        <div  style="width:600px;margin:auto">
+                    <h4 class="my-7 text-xs">{{ user?.token }}</h4>
+                </div>
     </div>
     <div v-else>
         <div class="container h-screen flex justify-center pt-10 text-center">
