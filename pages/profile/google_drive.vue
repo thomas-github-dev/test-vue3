@@ -156,7 +156,11 @@
       listFiles();
     }
 
+
+    
+
     function supprimer(id) {
+      //console.log(gapi.client.drive.files.get({'fileId': id}))
       var request = gapi.client.drive.files.delete({
         // give file id to delete
         'fileId': id

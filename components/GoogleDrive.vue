@@ -49,13 +49,13 @@
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto" >
             <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width:100px">
                         Type
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width:400px">
                         Nom
                     </th>                   
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width:200px">
                         Actions
                     </th>
                 </tr>
@@ -83,7 +83,7 @@
                 <PaginationEllipsis v-else :key="item.type" :index="index" />
             </template>
 
-           
+            
             <PaginationLast  @click="change_index(items.length-1)"/>
             </PaginationList>
         </Pagination>
