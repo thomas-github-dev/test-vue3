@@ -128,13 +128,13 @@
     }
 
     function search(){
-        console.log(search_value.value)
+        
         drive_file = sav_drive_file
         var drive_file_temp = []
         //let word = new String("")
        // drive_file_temp =  drive_file.filter(filer_arr);   
        if (search_value.value!='')     {
-        drive_file_temp = drive_file.filter((word:data_drive)=> word.name.includes(search_value.value));
+        drive_file_temp = drive_file.filter((word:data_drive)=> word.name.toLowerCase().includes(search_value.value.toLowerCase()));
         drive_file = drive_file_temp
         list_affich = drive_file_temp.slice(0,10)
         component_key.value+=1
