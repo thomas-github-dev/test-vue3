@@ -39,9 +39,9 @@ definePageMeta({
                 
             </div>
         </div>
-        <div  style="width:600px;margin:auto">
+       <!-- <div  style="width:600px;margin:auto">
                     <h4 class="my-7 text-xs">{{ user?.token }}</h4>
-                </div>
+                </div>-->
     </div>
     <div v-else>
         <div class="container h-screen flex justify-center pt-10 text-center">

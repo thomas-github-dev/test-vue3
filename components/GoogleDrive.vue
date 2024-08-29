@@ -28,7 +28,7 @@
             <GoogleDriveFolder :drive_folder="z" @clicked="clicked"/>          
         </div>
     </div>
-    <div class="flex flex-col mt-5" v-if="drive_file.length>0">
+    <div class="flex flex-col mt-5" >
         <div class="flex flex-row mt-2" style="height: 50px;">
 
            
@@ -36,16 +36,16 @@
                     <Input placeholder="Recherche" v-model="search_value" @input="search()" />
                 </div>
                 
-                <div v-if="search_value" class="mr-2">
+                <div v-if="search_value" class="ml-2">
                     
-                    <Button @click="delete_search()">X</Button>
+                    <Button @click="delete_search()" >X</Button>
                 </div>
         </div>
        
    
             
        
-        <div>
+        <div v-if="drive_file.length>0">
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto" >
             <thead class="bg-gray-50">
                 <tr>
@@ -69,7 +69,10 @@
             </tbody>
         </table>
         </div>
-        <Pagination   v-slot="{ page }" :total="drive_file.length" :sibling-count="1" show-edges :default-page="1" class="mt-10">
+        <div class="mt-4" v-else>
+            Aucun fichier 
+        </div>
+        <Pagination   v-slot="{ page }" :total="drive_file.length" :sibling-count="1" show-edges :default-page="1" class="mt-10" v-if="drive_file.length>0">
             <PaginationList v-slot="{ items }" class="flex items-center gap-1">
             <PaginationFirst  @click="change_index(0)"/>
            
@@ -88,9 +91,7 @@
             </PaginationList>
         </Pagination>
     </div>
-    <div v-else>
-        Aucun fichier 
-    </div>
+   
     
     
 </template>
